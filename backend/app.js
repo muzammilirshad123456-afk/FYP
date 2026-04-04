@@ -14,23 +14,26 @@ const app = express();
 
 
 // ALLOWED FRONTEND ORIGINS
-const allowedOrigins = [
-  "http://localhost:5174", // your main frontend (Vite)
-  "http://localhost:5173", // optional: admin/dashboard
-];
 
-// CORS CONFIGURATION
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, etc.)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true // ⭐ Required for cookies
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://vercel-adminpanel.vercel.app",
+      "https://vercel-frontend-coral-two.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "token"
+    ],
+    credentials: true
+  })
+);
+
+
 
 app.use(cookieParser());
 app.use(express.json());
@@ -49,4 +52,10 @@ app.use("/api/v1/appointment", appointmentRouter);
 dbConnection();
 
 app.use(errorMiddleware);
+
+app.get("/", (req, res) => {
+  res.status(200).send("API Working");
+});
+
+
 export default app;
