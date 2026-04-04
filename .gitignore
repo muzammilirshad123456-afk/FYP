@@ -28,7 +28,7 @@ pids/
 coverage/
 
 # build output
-dist/
+
 build/
 
 # OS files
