@@ -20,7 +20,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://fyp-production-2ff6.up.railway.app",
+      "https://precious-bienenstitch-ecfefe.netlify.app",
       "https://vercel-frontend-coral-two.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
