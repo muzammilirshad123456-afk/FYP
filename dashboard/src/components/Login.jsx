@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 import { Context } from "../main";
 import axios from "axios";
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
@@ -18,7 +20,7 @@ const Login = () => {
     try {
       await axios
         .post(
-          "http://localhost:5000/api/v1/user/login",
+          `${API_URL}/api/v1/user/login`,
           { email, password, confirmPassword, role: "Admin" },
           {
             withCredentials: true,

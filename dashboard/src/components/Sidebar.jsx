@@ -13,12 +13,13 @@ import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const [show, setShow] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
 
   const handleLogout = async () => {
     await axios
-      .get("http://localhost:5000/api/v1/user/admin/logout", {
+      .get(`${API_URL}/api/v1/user/admin/logout`, {
         withCredentials: true,
       })
       .then((res) => {

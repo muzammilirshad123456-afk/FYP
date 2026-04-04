@@ -4,14 +4,16 @@ import { toast } from "react-toastify";
 import { Context } from "../main";
 import { Navigate } from "react-router-dom";
 
+
 const Doctors = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [doctors, setDoctors] = useState([]);
   const { isAuthenticated } = useContext(Context);
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/api/v1/user/doctors",
+          `${API_URL}/api/v1/user/doctors`,
           { withCredentials: true }
         );
         setDoctors(data.doctors);
