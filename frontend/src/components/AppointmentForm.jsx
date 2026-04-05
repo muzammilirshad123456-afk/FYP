@@ -188,7 +188,7 @@ const AppointmentForm = () => {
                   </option>
                 ))}
             </select> */}
-            <select
+            {/* <select
               value={JSON.stringify({
                 firstName: doctorFirstName,
                 lastName: doctorLastName,
@@ -214,7 +214,35 @@ const AppointmentForm = () => {
                     {doctor.firstName} {doctor.lastName}
                   </option>
                 ))}
+            </select> */}
+
+            <select
+              value={`${doctorFirstName}-${doctorLastName}`}
+              onChange={(e) => {
+                const [firstName, lastName] = e.target.value.split("-");
+                setDoctorFirstName(firstName);
+                setDoctorLastName(lastName);
+              }}
+              disabled={!department}
+            >
+              <option value="">Select Doctor</option>
+              {doctors
+                .filter(
+                  (doctor) =>
+                    doctor.doctorDepartment?.toLowerCase() ===
+                    department.toLowerCase()
+                )
+                .map((doctor, index) => (
+                  <option
+                    key={index}
+                    value={`${doctor.firstName}-${doctor.lastName}`}
+                  >
+                    {doctor.firstName} {doctor.lastName}
+                  </option>
+                ))}
             </select>
+
+
           </div>
           <textarea
             rows="10"
