@@ -19,11 +19,12 @@ const Register = () => {
   const navigateTo = useNavigate();
 
   const handleRegistration = async (e) => {
+    const API_URL = import.meta.env.VITE_API_URL;
     e.preventDefault();
     try {
       await axios
         .post(
-          "http://localhost:5000/api/v1/user/patient/register",
+          `${API_URL}/api/v1/user/patient/register`,
           { firstName, lastName, email, phone, nic, dob, gender, password },
           {
             withCredentials: true,

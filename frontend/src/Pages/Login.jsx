@@ -6,6 +6,7 @@ import { Link, useNavigate, Navigate } from "react-router-dom";
 
 const Login = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,7 +19,7 @@ const Login = () => {
     try {
       await axios
         .post(
-          "http://localhost:5000/api/v1/user/login",
+          `${API_URL}/api/v1/user/login`,
           { email, password, confirmPassword, role: "Patient" },
           {
             headers: { "Content-Type": "application/json" },
