@@ -21,7 +21,7 @@ app.use(
       "http://localhost:5173",
       "http://localhost:5174",
       "https://precious-bienenstitch-ecfefe.netlify.app",
-      "https://vercel-frontend-coral-two.vercel.app"
+      "https://capable-pie-9006e9.netlify.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: [
