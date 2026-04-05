@@ -23,6 +23,7 @@ const Login = () => {
           { email, password, confirmPassword, role: "Patient" },
           {
             headers: { "Content-Type": "application/json" },
+            withCredentials: true,
           }
         )
         .then((res) => {
