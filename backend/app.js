@@ -27,7 +27,9 @@ app.use(
     allowedHeaders: [
       "Content-Type",
       "Authorization",
-      "token"
+      "token",
+      "adminToken",
+      "patientToken"
     ],
     credentials: true
   })
