@@ -7,8 +7,25 @@ import { GoCheckCircleFill } from "react-icons/go";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const Dashboard = () => {
+  const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const API_URL = import.meta.env.VITE_API_URL;
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        const { data } = await axios.get(
+          `${API_URL}/api/v1/user/doctors`,
+          { withCredentials: true }
+        );
+        setDoctors(data.doctors);
+      } catch (error) {
+        toast.error(error.response.data.message);
+      }
+    };
+    fetchDoctors();
+  }, []);
+
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -65,19 +82,17 @@ const Dashboard = () => {
                 </h5>
               </div>
               <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Facilis, nam molestias. Eaque molestiae ipsam commodi neque.
-                Assumenda repellendus necessitatibus itaque.
+                Welcome to the Zee Care Dashboard! We're glad to have you here. Manage your services, track activities, and stay in control with ease.
               </p>
             </div>
           </div>
           <div className="secondBox">
             <p>Total Appointments</p>
-            <h3>1500</h3>
+            <h3>{appointments.length}</h3>
           </div>
           <div className="thirdBox">
             <p>Registered Doctors</p>
-            <h3>10</h3>
+            <h3>{doctors.length}</h3>
           </div>
         </div>
         <div className="banner">

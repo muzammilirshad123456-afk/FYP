@@ -11,26 +11,14 @@ const Biography = ({imageUrl}) => {
           <p>Biography</p>
           <h3>Who We Are</h3>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-            blanditiis sequi aperiam. Debitis fugiat harum ex maxime illo
-            consequatur mollitia voluptatem omnis nihil nesciunt beatae esse
-            ipsam, sapiente totam aspernatur porro ducimus aperiam nisi. Ex
-            magnam voluptatum consectetur reprehenderit fugiat recusandae aut
-            similique illum natus velit, praesentium nostrum nesciunt. Deleniti,
-            nesciunt laboriosam totam iusto!
+            We are a team of passionate developers working on a modern web-based solution called the Hospital Management System (HMS). Our project is designed to simplify and automate hospital operations using the latest web technologies.
+
+In today’s healthcare environment, many hospitals still rely on manual systems for managing patient records, appointments, and medical data. These traditional methods are time-consuming, error-prone, and inefficient. Our goal is to solve these problems by providing a centralized and digital platform.
+
+The Hospital Management System allows patients, doctors, and administrators to interact efficiently within a single system. Patients can easily register, book appointments, and view their medical records. Doctors can manage patient history, update diagnoses, and prescribe treatments. Administrators have full control over hospital operations, including managing staff, appointments, and system records.
+
+This project is developed using the MERN Stack (MongoDB, Express.js, React.js, Node.js), which ensures high performance, scalability, and a user-friendly interface. The system is designed to be secure, reliable, and easy to use for users with minimal technical knowledge.
           </p>
-          <p>We are all in 2024!</p>
-          <p>We are working on a MERN STACK PROJECT.</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            assumenda exercitationem accusamus sit repellendus quo optio dolorum
-            corporis corrupti. Quas similique vel minima veniam tenetur
-            obcaecati atque magni suscipit laboriosam! Veniam vitae minus nihil
-            cupiditate natus provident. Ex illum quasi pariatur odit nisi
-            voluptas illo qui ipsum mollitia. Libero, assumenda?
-          </p>
-          <p>Lorem ipsum dolor sit amet!</p>
-          <p>Coding is fun!</p>
         </div>
       </div>
     </>
