@@ -2,7 +2,7 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { generateToken } from "../utils/jwtToken.js";
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary"; // Make sure cloudinary is imported at the top
 
 export const patientRegister = catchAsyncErrors(async (req, res, next) => {
   const { firstName, lastName, email, phone, nic, dob, gender, password } =
@@ -103,6 +103,8 @@ export const addNewAdmin = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+
+
 export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return next(new ErrorHandler("Doctor Avatar Required!", 400));
@@ -123,6 +125,7 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
     password,
     doctorDepartment,
   } = req.body;
+  
   if (
     !firstName ||
     !lastName ||
@@ -137,15 +140,27 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
   ) {
     return next(new ErrorHandler("Please Fill Full Form!", 400));
   }
+  
   const isRegistered = await User.findOne({ email });
   if (isRegistered) {
     return next(
       new ErrorHandler("Doctor With This Email Already Exists!", 400)
     );
   }
+
+  // 🔥 VERCEL FIX: Force Cloudinary to read keys inside the runtime execution context
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+
+  // Perform the upload with the freshly loaded configuration keys
   const cloudinaryResponse = await cloudinary.uploader.upload(
-    docAvatar.tempFilePath
+    docAvatar.tempFilePath,
+    { folder: "DOCTORS_AVATARS" } // Optional: Organizes uploads into a folder
   );
+
   if (!cloudinaryResponse || cloudinaryResponse.error) {
     console.error(
       "Cloudinary Error:",
@@ -155,6 +170,7 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("Failed To Upload Doctor Avatar To Cloudinary", 500)
     );
   }
+  
   const doctor = await User.create({
     firstName,
     lastName,
@@ -171,12 +187,14 @@ export const addNewDoctor = catchAsyncErrors(async (req, res, next) => {
       url: cloudinaryResponse.secure_url,
     },
   });
+  
   res.status(200).json({
     success: true,
     message: "New Doctor Registered",
     doctor,
   });
 });
+
 
 export const getAllDoctors = catchAsyncErrors(async (req, res, next) => {
   const doctors = await User.find({ role: "Doctor" });
