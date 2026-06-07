@@ -20,8 +20,8 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:5174",
-      "https://precious-bienenstitch-ecfefe.netlify.app",
-      "https://capable-pie-9006e9.netlify.app"
+      "https://fyp-6nnp.vercel.app",
+      "https://fyp-coral-pi.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: [
