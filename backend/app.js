@@ -12,9 +12,7 @@ import "dotenv/config";
 
 const app = express();
 
-
-// ALLOWED FRONTEND ORIGINS
-
+// 1. ALLOWED FRONTEND ORIGINS WITH CORS
 app.use(
   cors({
     origin: [
@@ -35,8 +33,6 @@ app.use(
   })
 );
 
-
-
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,17 +43,32 @@ app.use(
     tempFileDir: "/tmp/",
   })
 );
+
+// 2. NEW: GLOBAL DATABASE MIDDLEWARE FOR VERCEL
+// This ensures MongoDB finishes connecting before any route query tries to run
+app.use(async (req, res, next) => {
+  try {
+    await dbConnection();
+    next();
+  } catch (error) {
+    console.error("Database connection middleware error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Database connection failed. Please try again later.",
+    });
+  }
+});
+
+// 3. API ROUTES (Now protected by the database connection check above)
 app.use("/api/v1/message", messageRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/appointment", appointmentRouter);
-
-dbConnection();
-
-app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
   res.status(200).send("API Working");
 });
 
+// 4. ERROR MIDDLEWARE (Should always be last)
+app.use(errorMiddleware);
 
 export default app;
